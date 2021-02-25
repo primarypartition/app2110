@@ -6,6 +6,8 @@
 
 > https://www.apollographql.com/docs/react/
 
+> https://github.com/davidyaha/graphql-redis-subscriptions
+
 
 # Commands
 
@@ -20,6 +22,8 @@
 > npm install
 
 > npm start
+
+> npm install graphql-subscriptions
 
 
 # Server 
