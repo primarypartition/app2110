@@ -9,4 +9,18 @@
 
 > npm install apollo-server graphql
 
+> npm install apollo-server-express graphql
+
 > node server.js
+
+> npm install
+
+> npm start
+
+
+# Server 
+
+> node server.js
+
+> npm start
+
