@@ -15,9 +15,16 @@ const Mutation = {
 
     //     return db.jobs.get(id);
     // }
-    createJob: (root, { input }) => {
-        const id = db.jobs.create(input);
+    createJob: (root, { input }, context) => {
+        console.log(context);
 
+        if (!context.user) {
+            throw new Error("Unauthoriation");
+        }
+
+        // const id = db.jobs.create(input);
+
+        const id = db.jobs.create({...input, companyId: context.user.companyId });
         return db.jobs.get(id);
     }
 }

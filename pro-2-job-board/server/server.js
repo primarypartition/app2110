@@ -5,8 +5,10 @@ const { ApolloServer, gql } = require('apollo-server-express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const express = require('express');
+
 const expressJwt = require('express-jwt');
 const jwt = require('jsonwebtoken');
+
 const db = require('./db');
 
 const port = 9000;
@@ -21,7 +23,10 @@ app.use(cors(), bodyParser.json(), expressJwt({
 
 const typeDefs = gql(fs.readFileSync('./schema.graphql', { encoding: 'utf8' }));
 const resolvers = require('./resolvers');
-const apolloServer = new ApolloServer({ typeDefs, resolvers });
+// const context = ({ req }) => ({ user: req.user });
+const context = ({ req }) => ({ user: req.user && db.users.get(req.user.sub) });
+
+const apolloServer = new ApolloServer({ typeDefs, resolvers, context });
 apolloServer.applyMiddleware({ app, path: '/graphql' });
 // http://localhost:9000/graphql
 
@@ -145,6 +150,10 @@ apolloServer.applyMiddleware({ app, path: '/graphql' });
 //         "title": "Software Engineer 1",
 //         "description": "Software Engineer 1 Job description"}
 //   }  
+
+// {
+//     "authorization":"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJyeTlwYndkT3oiLCJpYXQiOjE2MTQyMDg3OTR9.Lb5pD3Li9ho6OZ2IehJPIUWKpVxV-ZtjVtAevDZN63E"
+//   }
 
 
 app.post('/login', (req, res) => {
