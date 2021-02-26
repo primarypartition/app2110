@@ -25,6 +25,10 @@
 
 > npm install graphql-subscriptions
 
+> npm install apollo-link-ws subscriptions-transport-ws
+
+> npm install @apollo/react-hooks
+
 
 # Server 
 
